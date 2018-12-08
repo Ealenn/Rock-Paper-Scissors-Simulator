@@ -1,0 +1,30 @@
+{
+  "name": "rock.paper.scissors.simulator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node built/index",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@types/mersenne-twister": "^1.1.2",
+    "chalk": "^2.4.1",
+    "mersenne-twister": "^1.1.0",
+    "ora": "^3.0.0",
+    "pretty-columns": "^1.2.1",
+    "random-js": "^1.0.8",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1"
+  }
+}
