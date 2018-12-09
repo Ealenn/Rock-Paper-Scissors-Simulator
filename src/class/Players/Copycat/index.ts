@@ -1,20 +1,19 @@
-import { GameState, ROCK, PAPER, SCISSORS } from "../../Game";
+import { GameState } from "../../Game";
 import IPlayer from "../../Players/Player.interface";
-import PlayerTools from "../../Players/PlayerTools";
+import PlayerTools from "../PlayerTools";
 
 export default class Copycat extends PlayerTools implements IPlayer {
-    _opponentHistory: Array<GameState> = [];
+    private lastOpponentGame: GameState;
 
     get name() : string {
-        return "CopyCatePlayer";
+        return "Copycate";
     }
 
     play() : GameState {
-        const opponentHistoryLength = this._opponentHistory.length;
-        return opponentHistoryLength > 0 ? this._opponentHistory[opponentHistoryLength - 1] : this.getRandomState()
+        return this.lastOpponentGame ? this.lastOpponentGame : this.getRandomState()
     }
 
     addToOpponentHistory(state: GameState) {
-        this._opponentHistory.push(state);
+        this.lastOpponentGame = state;
     }
 }

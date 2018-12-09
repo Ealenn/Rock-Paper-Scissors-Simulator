@@ -4,7 +4,7 @@ import PlayerTool from "../PlayerTools";
 
 export default class Random extends PlayerTool implements IPlayer {
     public get name() : string {
-        return "RandomPlayer";
+        return "Random";
     }
 
     public play() : GameState {

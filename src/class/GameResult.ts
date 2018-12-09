@@ -27,12 +27,6 @@ export default class GameResult {
             result.Egality++;
         });
     }
-
-    public show () {
-        this.results.forEach((result: PlayerResult) => {
-            result.show();
-        });
-    }
 }
 
 export class PlayerResult {
@@ -48,14 +42,5 @@ export class PlayerResult {
         this.Looser = 0;
         this.Egality = 0;
         this.Round = 0;
-    }
-
-    public show() {
-        console.log(`
-            ${this.Player.name} :
-            Win : ${this.Winner}
-            Loose : ${this.Looser}
-            Egality : ${this.Egality}
-        `);
     }
 }

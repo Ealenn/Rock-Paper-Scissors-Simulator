@@ -25,10 +25,23 @@ export class Game {
             const winner = this.play();
             if (winner) {
                 this.result.addWinner(winner);
+                winner.Stats.addWinRound();
             } else {
                 this.result.addEgality();
             }
         }
+
+        const resultPlayerOne = this.result.results[0];
+        const resultPlayerTwo = this.result.results[1];
+
+        if (resultPlayerOne.Winner > resultPlayerTwo.Winner) {
+            resultPlayerOne.Player.Stats.addWinGame();
+        }
+
+        if (resultPlayerOne.Winner < resultPlayerTwo.Winner) {
+            resultPlayerTwo.Player.Stats.addWinGame();
+        }
+
         return this.result;
     }
 

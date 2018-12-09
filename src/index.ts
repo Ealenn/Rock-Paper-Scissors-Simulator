@@ -18,12 +18,13 @@ for (const FirstPlayer of Players) {
     for (const SecondPlayer of Players) {
         const spinner = Ora(`${FirstPlayer.name} play with ${SecondPlayer.name}`).start();
         Displayer.addGameResult(new Game(
-            FirstPlayer,
-            SecondPlayer,
-            1000000
+                FirstPlayer,
+                SecondPlayer,
+                100
             ).shifumi());
         spinner.succeed();
     }
 }
 
-Displayer.show();
+Displayer.showResumeGames();
+Displayer.showLeaderboard();

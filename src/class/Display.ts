@@ -1,5 +1,8 @@
 import GameResult, { PlayerResult } from './GameResult';
+import IPlayer from './Players/Player.interface';
+
 import { output as prettyColumns } from 'pretty-columns';
+import chalk from 'chalk';
 
 export default class Display {
     private Results: Array<GameResult> = [];
@@ -8,7 +11,7 @@ export default class Display {
         this.Results.push(result);
     }
 
-    public show() {
+    public showResumeGames() {
         const showableArray: Array<Array<string>> = [];
         const headers = [
             "Player",
@@ -38,24 +41,62 @@ export default class Display {
             ]);
         });
 
-        // Sort Array
-        showableArray.sort((a: string[], b: string[]): number => {
-            if (Number(a[2]) > Number(b[2])) {
+        this.showArray('Resume', showableArray, headers, (a: string[], b: string[]): number => {
+            if (Number(a[3]) > Number(b[3])) {
                 return -1;
             }
             return 1;
         });
-        showableArray.unshift(headers);
+    }
 
-        // Show result
-        prettyColumns(showableArray, {
+    public showLeaderboard() {
+        const showableArray: Array<Array<string>> = [];
+        const headers = [
+            "Player",
+            "Game Win",
+            "Round Win"
+        ];
+
+        const Players: Array<IPlayer> = [];
+        for (const results of this.Results) {
+            for (const result of results.results) {
+                if (!(Players.indexOf(result.Player) >= 0)) {
+                    Players.push(result.Player);
+                }
+            }
+        }
+
+        for (const player of Players) {
+            showableArray.push([
+                player.name,
+                String(player.Stats.WinGame),
+                String(player.Stats.WinRound),
+            ]);
+        }
+
+        this.showArray('Leaderboard', showableArray, headers, (a: string[], b: string[]): number => {
+            if (Number(a[1]) > Number(b[1])) {
+                return -1;
+            }
+            return 1;
+        });
+    }
+
+    private showArray(title: string, data: Array<Array<string>>, headers: Array<string>, sort: (a: any, b: any)=> number) {
+        console.log(`
+            ${chalk.bold(title)}
+        `);
+
+        data.sort(sort);
+        data.unshift(headers);
+        prettyColumns(data, {
             align: 'cr',
             columnSeparation: ' | ',
             rowSeparation: " |\n| ",
             prefix: '| ',
             suffix: ' |',
             placeholder: ' '
-        })
+        });
     }
 
     private roundPcr(value: number, of: number) {
