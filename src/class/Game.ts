@@ -1,4 +1,4 @@
-import GameResult from "./GameResult";
+import GameResult from "./GameStats";
 import IPlayer from "./Players/Player.interface";
 
 export type GameState = "ROCK" | "PAPER" | "SCISSORS";
@@ -22,30 +22,15 @@ export class Game {
 
     public shifumi(): GameResult {
         for (let actualRound = 0; actualRound < this.round; actualRound++) {
-            const winner = this.play();
-            if (winner) {
-                this.result.addWinner(winner);
-                winner.Stats.addWinRound();
-            } else {
-                this.result.addEgality();
-            }
+            const winner = this.playRound();
+            winner ? this.result.addWinner(winner) : this.result.addEgality();;
         }
 
-        const resultPlayerOne = this.result.results[0];
-        const resultPlayerTwo = this.result.results[1];
-
-        if (resultPlayerOne.Winner > resultPlayerTwo.Winner) {
-            resultPlayerOne.Player.Stats.addWinGame();
-        }
-
-        if (resultPlayerOne.Winner < resultPlayerTwo.Winner) {
-            resultPlayerTwo.Player.Stats.addWinGame();
-        }
-
+        this.setPlayersGamePoint();
         return this.result;
     }
 
-    private play(): IPlayer | null {
+    private playRound(): IPlayer | null {
         const playerOneState = this.playerOne.play();
         const playerTwoState = this.playerTwo.play();
 
@@ -66,6 +51,22 @@ export class Game {
                 return playerTwoState !== ROCK ? this.playerOne : this.playerTwo;
             default:
                 return null;
+        }
+    }
+
+    private setPlayersGamePoint() {
+        const resultPlayerOne = this.result.Results[0];
+        const resultPlayerTwo = this.result.Results[1];
+
+        if (resultPlayerOne.Win == resultPlayerTwo.Win) {
+            resultPlayerOne.Player.addEgalityGame();
+            resultPlayerTwo.Player.addEgalityGame();
+        } else if (resultPlayerOne.Win > resultPlayerTwo.Win) {
+            resultPlayerOne.Player.addWinGame();
+            resultPlayerTwo.Player.addLooseGame();
+        } else if (resultPlayerOne.Win < resultPlayerTwo.Win) {
+            resultPlayerTwo.Player.addWinGame();
+            resultPlayerOne.Player.addLooseGame();
         }
     }
 

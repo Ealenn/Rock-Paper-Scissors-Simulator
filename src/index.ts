@@ -4,14 +4,18 @@ import Display from './class/Display';
 import Ora from 'ora';
 
 import Copycat from './class/Players/Copycat';
+import InvertedCopycat from './class/Players/InvertedCopycat';
 import Random from './class/Players/Random';
 import HumanRand from './class/Players/HumanRand';
+import InvertedHumanRand from './class/Players/InvertedHumanRand';
 
 const Displayer = new Display();
 const Players: Array<IPlayer> = [
     new Copycat(),
+    new InvertedCopycat(),
     new Random(),
-    new HumanRand()
+    new HumanRand(),
+    new InvertedHumanRand(),
 ];
 
 for (const FirstPlayer of Players) {
@@ -20,7 +24,7 @@ for (const FirstPlayer of Players) {
         Displayer.addGameResult(new Game(
                 FirstPlayer,
                 SecondPlayer,
-                100
+                100000
             ).shifumi());
         spinner.succeed();
     }

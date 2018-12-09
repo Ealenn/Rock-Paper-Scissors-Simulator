@@ -2,8 +2,7 @@ import { GameState, ROCK, PAPER, SCISSORS } from "../Game";
 import PlayerStats from './PlayerStats';
 import MersenneTwister from 'mersenne-twister';
 
-export default class PlayerTools {
-    public Stats: PlayerStats = new PlayerStats();
+export default class PlayerBot extends PlayerStats {
     private RandomEngine: any = new MersenneTwister();
 
     protected getRandomState() : GameState {

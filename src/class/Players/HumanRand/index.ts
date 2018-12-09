@@ -1,8 +1,8 @@
 import { GameState } from "../../Game";
 import IPlayer from "../../Players/Player.interface";
-import PlayerTools from "../PlayerTools";
+import PlayerBot from "../PlayerBot";
 
-export default class HumanRand extends PlayerTools implements IPlayer {
+export default class HumanRand extends PlayerBot implements IPlayer {
     private lastGame: GameState;
 
     get name() : string {

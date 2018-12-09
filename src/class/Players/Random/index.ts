@@ -1,8 +1,8 @@
 import { GameState } from "../../Game";
 import IPlayer from "../Player.interface";
-import PlayerTool from "../PlayerTools";
+import PlayerBot from "../PlayerBot";
 
-export default class Random extends PlayerTool implements IPlayer {
+export default class Random extends PlayerBot implements IPlayer {
     public get name() : string {
         return "Random";
     }
